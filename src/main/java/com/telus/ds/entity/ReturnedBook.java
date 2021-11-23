@@ -28,47 +28,42 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Table(name = "borrowedbooks")
+@Table(name = "returnedbooks")
 
-public class BorrowedBook {
+public class ReturnedBook {
 	
-	public BorrowedBook() {	}
-	
-	public BorrowedBook(Integer idUserClient,LocalDateTime returnDate, LocalDateTime borrowDate, Integer renewalQuantity, Integer idBook  ) {
+	public ReturnedBook() {	}
+
+	public ReturnedBook(Integer idBook2,  Integer idUserClient2,LocalDateTime returnedDate  ) {
 		super();
-		this.idUserClient=idUserClient;
-		this.returnDate=returnDate;
-		this.borrowDate=borrowDate;
-		this.renewalQuantity=renewalQuantity;
+		this.idBook2=idBook2;
+		this.idUserClient2=idUserClient2;
+		this.returnedDate=returnedDate;
+		
 	}
 	
 	@Id
-	@Column(name="idBorrowedBooks", updatable=false)
+	@Column(name="idReturnedBooks", updatable=false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idBorrowedBooks;
+	private Integer idReturnedBooks;
 	
-	@Column(name="idUserClient", updatable=false)
-	@NotNull(message = "idUserClient is required")
-	private Integer idUserClient;	
+	@Column(name="idBook2", updatable=false)
+	@NotNull(message = "idBook2 is required")
+	private Integer idBook2;
 	
-	@Column(name="returnDate", updatable=false)
-	@NotNull(message = "returnDate is required")
-	private LocalDateTime returnDate;
+	@Column(name="idUserClient2", updatable=false)
+	@NotNull(message = "idUserClient2 is required")
+	private Integer idUserClient2;
 	
-	@Column(name="borrowDate", updatable=false)
-	@NotNull(message = "borrowDate DATE is required")
-	private LocalDateTime borrowDate;
+	@Column(name="returnedDate", updatable=false)
+	@NotNull(message = "returnedDate is required")
+	private LocalDateTime returnedDate;
 	
-	@Column(name="renewalQuantity", updatable=false)
-	private Integer renewalQuantity;
 	
-	@Column(name="idBook", updatable=false)
-	@NotNull(message = "idBook is required")
-	private Integer idBook;
-
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "idBook", nullable = false)
     @NotNull(message = "Book is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
     private Book bookObj;
+
 }
