@@ -32,7 +32,7 @@ public class UserController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping("/getTrack")
+    @GetMapping("/getUser")
     public UserDTO getUser(@RequestParam("id") int id) {
 
         User userFound = userService.getUser(id);
@@ -42,8 +42,8 @@ public class UserController {
         return convertToDTO(userFound);
     }
 
-    @GetMapping("/getTracks")
-    public List<UserDTO> getTracks() {
+    @GetMapping("/getUsers")
+    public List<UserDTO> getUsers() {
         return userService.getUsers()
                 .stream()
                 .map(t -> convertToDTO(t))
