@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.telus.ds.entity.BorrowedBook;
-import com.telus.ds.entity.Ticket;
 import com.telus.ds.repository.BorrowedBookRepository;
 
 @Service

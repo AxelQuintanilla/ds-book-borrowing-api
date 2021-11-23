@@ -1,5 +1,4 @@
 package com.telus.ds.controller;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,51 +13,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.telus.ds.entity.BorrowedBook;
-import com.telus.ds.entity.dto.BorrowedBookDTO;
+import com.telus.ds.entity.ReturnedBook;
+import com.telus.ds.entity.dto.ReturnedBookDTO;
 import com.telus.ds.exception.ResourceNotFoundException;
-import com.telus.ds.service.BorrowedBookService;
+import com.telus.ds.service.ReturnedBookService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/borrowedbook")
-public class BorrowedBookController {
+@RequestMapping("/returnedbook")
+public class ReturnedBookController {
 	 @Autowired
-	 BorrowedBookService borrowedbookService;
+	 ReturnedBookService returnedbookService;
 
 	    @Autowired
 	    private ModelMapper modelMapper;
 
-	    @GetMapping("/getBorrowedBook")
-	    public BorrowedBookDTO getBorrowedBook(@RequestParam("idBorrowedBook") int idBorrowedBook) {
+	    @GetMapping("/getReturnedBook")
+	    public ReturnedBookDTO getReturnedBook(@RequestParam("idReturnedBook") int idReturnedBook) {
 
-	    	BorrowedBook borrowedbookFound = borrowedbookService.getBorrowedBook(idBorrowedBook);
-	        if (borrowedbookFound == null) {
-	            throw new ResourceNotFoundException("Borrowed Book not found with id=" + idBorrowedBook);
+	    	ReturnedBook returnedbookFound = returnedbookService.getReturnedBook(idReturnedBook);
+	        if (returnedbookFound == null) {
+	            throw new ResourceNotFoundException("ReturnedBook not found with id=" + idReturnedBook);
 	        }
-	        return convertToDTO(borrowedbookFound);
+	        return convertToDTO(returnedbookFound);
 	    }
 	    
-	    @GetMapping("/getBorrowedBooks")
-	    public List<BorrowedBookDTO> getBorrowedBooks() {
-	        return borrowedbookService.getBorrowedBooks()
+	    @GetMapping("/getReturnedBooks")
+	    public List<ReturnedBookDTO> getReturnedBooks() {
+	        return returnedbookService.getReturnedBooks()
 	                .stream()
 	                .map(t -> convertToDTO(t))
 	                .collect(Collectors.toList());
 	    }
 
 	    @PostMapping("/create")
-	    public BorrowedBookDTO create(@RequestBody BorrowedBook borrowedbook) {
-	        log.info("Creating a borrowedbook");
-	        return convertToDTO(borrowedbookService.create(borrowedbook));
+	    public ReturnedBookDTO create(@RequestBody ReturnedBook returnedbook) {
+	        log.info("Creating a returnedbook");
+	        return convertToDTO(returnedbookService.create(returnedbook));
 	    }
 
 	    
-	    private BorrowedBookDTO convertToDTO(BorrowedBook borrowedbook) {
+	    private ReturnedBookDTO convertToDTO(ReturnedBook returnedbook) {
 	        configModelMapper();
-	        return modelMapper.map(borrowedbook, BorrowedBookDTO.class);
+	        return modelMapper.map(returnedbook, ReturnedBookDTO.class);
 	    }
 	    
 	    private void configModelMapper() {
@@ -66,4 +65,5 @@ public class BorrowedBookController {
 	            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
 	        }
 	    }
+	
 }
