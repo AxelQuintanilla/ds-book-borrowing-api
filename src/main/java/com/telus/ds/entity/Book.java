@@ -31,8 +31,8 @@ public class Book {
     public Book() {
     }
     
-    public Book(String book_name, String ISBN, String genre, Integer quantity, Boolean state) {
-        this.book_name = book_name;
+    public Book(String bookName, String ISBN, String genre, Integer quantity, Boolean state) {
+        this.bookName = bookName;
         this.ISBN = ISBN;
         this.genre = genre;
         this.quantity = quantity;
@@ -43,10 +43,10 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bookid", updatable = false)
     private Integer bookid;
-    @Column(name = "book_name", updatable = false)
+    @Column(name = "bookName", updatable = false)
     @Length(max = 45, min = 10)
     @NotNull(message = "Book name is required")
-    private String book_name;
+    private String bookName;
     @Column(name="ISBN", updatable=false)
     @NotNull(message = "ISBN is required")
     private String ISBN;

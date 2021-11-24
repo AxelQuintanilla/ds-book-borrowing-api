@@ -20,6 +20,9 @@ import com.telus.ds.exception.ResourceNotFoundException;
 import com.telus.ds.service.BookService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Slf4j
 @RestController
@@ -40,7 +43,7 @@ public class BookController {
         }
         return convertToDTO(book);
     }
-    
+
     @GetMapping("/getBooks")
     public List<BookDTO> getBooks() {
         return bookService.getBooks()
@@ -48,11 +51,23 @@ public class BookController {
                 .map(t -> convertToDTO(t))
                 .collect(Collectors.toList());
     }
-    
+
     @PostMapping("/create")
     public BookDTO create(@RequestBody Book book) {
         log.info("Creating a book");
         return convertToDTO(bookService.create(book));
+    }
+
+    @PutMapping("/update/{bookid}")
+    private BookDTO update(@RequestBody Book bookUpdated, @PathVariable("bookid") int bookid) {
+        Book book = bookService.findBybookid(bookid);
+        log.info("Updating a book");
+        return convertToDTO(bookService.saveOrUpdate(book, bookUpdated));
+    }
+
+    @DeleteMapping("/delete/{bookid}")
+    private void deleteBook(@PathVariable("bookid") int bookid) {
+        bookService.delete(bookid);
     }
 
     private BookDTO convertToDTO(Book book) {

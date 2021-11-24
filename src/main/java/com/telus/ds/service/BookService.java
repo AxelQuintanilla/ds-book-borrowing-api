@@ -15,14 +15,33 @@ public class BookService {
     public Book findBybookid(Integer bookid) {
         return bookRepository.findBybookid(bookid);
     }
-    
-    public Book create(Book book) {
-	/*user.setFirstName(firstName);
-        user.setLastName(lastName);*/
-	return bookRepository.save(book);
+
+    public Book saveOrUpdate(Book book, Book bookUpdated) {
+        book.setBookName(bookUpdated.getBookName());
+        book.setGenre(bookUpdated.getGenre());
+        book.setISBN(bookUpdated.getISBN());
+        book.setQuantity(bookUpdated.getQuantity());
+        book.setState(bookUpdated.getState());
+        return bookRepository.save(book);
     }
     
+    public Book create (Book book){
+        return bookRepository.save(book);
+    }
+
     public List<Book> getBooks() {
         return bookRepository.findAll();
+    }
+
+    /*public Book update(Book book) {
+        return bookRepository.save(book);
+    }*/
+
+    public void delete(int bookid) {
+        bookRepository.deleteById(bookid);
+    }
+
+    public void update(Book book, int bookid) {
+        bookRepository.save(book);
     }
 }
