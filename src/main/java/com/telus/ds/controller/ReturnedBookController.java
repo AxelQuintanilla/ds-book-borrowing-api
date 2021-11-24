@@ -31,11 +31,11 @@ public class ReturnedBookController {
 	    private ModelMapper modelMapper;
 
 	    @GetMapping("/getReturnedBook")
-	    public ReturnedBookDTO getReturnedBook(@RequestParam("idReturnedBook") int idReturnedBook) {
+	    public ReturnedBookDTO getReturnedBook(@RequestParam("returnedbooksid") Integer returnedbooksid) {
 
-	    	ReturnedBook returnedbookFound = returnedbookService.getReturnedBook(idReturnedBook);
+	    	ReturnedBook returnedbookFound = returnedbookService.getReturnedBook(returnedbooksid);
 	        if (returnedbookFound == null) {
-	            throw new ResourceNotFoundException("ReturnedBook not found with id=" + idReturnedBook);
+	            throw new ResourceNotFoundException("ReturnedBook not found with id=" + returnedbooksid);
 	        }
 	        return convertToDTO(returnedbookFound);
 	    }

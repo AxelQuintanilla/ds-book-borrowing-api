@@ -32,11 +32,11 @@ public class TicketController {
     private ModelMapper modelMapper;
 
     @GetMapping("/getTicket")
-    public TicketDTO getTicket(@RequestParam("id") int id) {
+    public TicketDTO getTicket(@RequestParam("ticketid") Integer ticketid) {
 
-        Ticket ticketFound = ticketService.getTicket(id);
+        Ticket ticketFound = ticketService.getTicket(ticketid);
         if (ticketFound == null) {
-            throw new ResourceNotFoundException("Ticket not found with id=" + id);
+            throw new ResourceNotFoundException("Ticket not found with id=" + ticketid);
         }
         return convertToDTO(ticketFound);
     }

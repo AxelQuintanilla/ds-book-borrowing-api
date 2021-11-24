@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.telus.ds.entity.BorrowedBook;
 
 public interface BorrowedBookRepository extends JpaRepository<BorrowedBook, Integer> {
-	BorrowedBook findByidBorrowedBook(int idBorrowedBook);
+	BorrowedBook findByborrowedbooksid(Integer borrowedbooksid);
 
 }

@@ -13,8 +13,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     
-    public User getUser(int id) {
-        return userRepository.findByidUser(id);
+    public User getUser(Integer userid) {
+        return userRepository.findByuserid(userid);
     } 
     
     public User create(User user) {

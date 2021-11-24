@@ -12,8 +12,8 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Book findById(Integer id_book) {
-        return bookRepository.findByid_book(id_book);
+    public Book findBybookid(Integer bookid) {
+        return bookRepository.findBybookid(bookid);
     }
     
     public Book create(Book book) {

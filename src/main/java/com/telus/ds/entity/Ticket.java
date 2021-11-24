@@ -42,22 +42,22 @@ public class Ticket {
     }
 
     @Id
-    @Column(name = "id_ticket", updatable = false)
+    @Column(name = "ticketid", updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer ticketid;
 
     @Column(name = "total", updatable = false)
     @NotNull(message = "total is required")
     private double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_book3", nullable = false)
+    @JoinColumn(name = "book3id", nullable = false)
     @NotNull(message = "Book is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Book bookObj;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user_client3", nullable = false)
+    @JoinColumn(name = "user3id", nullable = false)
     @NotNull(message = "User is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User userObj;

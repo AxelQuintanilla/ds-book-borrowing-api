@@ -15,8 +15,8 @@ public class BorrowedBookService {
 	 @Autowired
 	    private BorrowedBookRepository borrowedbookRepository;
 	    
-	    public BorrowedBook getBorrowedBook(int idBorrowedBook) {
-	        return borrowedbookRepository.findByidBorrowedBook(idBorrowedBook);
+	    public BorrowedBook getBorrowedBook(Integer borrowedbooksid) {
+	        return borrowedbookRepository.findByborrowedbooksid(borrowedbooksid);
 	    } 
 	    
 	    public BorrowedBook create(BorrowedBook borrowedbook) {

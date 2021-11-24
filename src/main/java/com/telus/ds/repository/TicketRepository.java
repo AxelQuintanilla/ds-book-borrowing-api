@@ -7,5 +7,5 @@ import com.telus.ds.entity.Ticket;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Integer>{
-    Ticket findByidTicket(int id);
+    Ticket findByticketid(Integer ticketid);
 }

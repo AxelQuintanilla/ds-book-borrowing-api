@@ -30,9 +30,9 @@ public class Book {
 
     public Book() {
     }
-
-    public Book(String bookName, String ISBN, String genre, Integer quantity, Boolean state) {
-        this.bookName = bookName;
+    
+    public Book(String book_name, String ISBN, String genre, Integer quantity, Boolean state) {
+        this.book_name = book_name;
         this.ISBN = ISBN;
         this.genre = genre;
         this.quantity = quantity;
@@ -41,12 +41,12 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_book", updatable = false)
-    private Integer id_book;
+    @Column(name = "bookid", updatable = false)
+    private Integer bookid;
     @Column(name = "book_name", updatable = false)
     @Length(max = 45, min = 10)
     @NotNull(message = "Book name is required")
-    private String bookName;
+    private String book_name;
     @Column(name="ISBN", updatable=false)
     @NotNull(message = "ISBN is required")
     private String ISBN;

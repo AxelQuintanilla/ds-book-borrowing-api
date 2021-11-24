@@ -13,8 +13,8 @@ public class TicketService {
     @Autowired
     private TicketRepository ticketRepository;
     
-    public Ticket getTicket(int id) {
-        return ticketRepository.findByidTicket(id);
+    public Ticket getTicket(Integer ticketid) {
+        return ticketRepository.findByticketid(ticketid);
     } 
     
     public Ticket create(Ticket ticket) {

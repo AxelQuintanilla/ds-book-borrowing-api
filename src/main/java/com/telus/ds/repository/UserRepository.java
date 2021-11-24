@@ -7,5 +7,5 @@ import com.telus.ds.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    User findByidUser(int id);
+    User findByuserid(Integer userid);
 }

@@ -42,9 +42,9 @@ public class ReturnedBook {
     }
 
     @Id
-    @Column(name = "id_returned_books", updatable = false)
+    @Column(name = "returnedbooksid", updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idReturnedBooks;
+    private Integer returnedbooksid;
 
     /*@Column(name="idBook2", updatable=false)
 	@NotNull(message = "idBook2 is required")
@@ -58,13 +58,13 @@ public class ReturnedBook {
     private LocalDateTime returnedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_book2", nullable = false)
+    @JoinColumn(name = "book2id", nullable = false)
     @NotNull(message = "Book is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Book bookObj;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user_client2", nullable = false)
+    @JoinColumn(name = "user2id", nullable = false)
     @NotNull(message = "User is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User userObj;

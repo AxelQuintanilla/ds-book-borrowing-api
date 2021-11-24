@@ -43,9 +43,9 @@ public class BorrowedBook {
     }
 
     @Id
-    @Column(name = "id_borrowed_books", updatable = false)
+    @Column(name = "borrowedbooksid", updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idBorrowedBooks;
+    private Integer borrowedbooksid;
 
     /*@Column(name = "idUserClient", updatable = false)
     @NotNull(message = "idUserClient is required")
@@ -62,17 +62,14 @@ public class BorrowedBook {
     @Column(name = "renewal_quantity", updatable = false)
     private Integer renewalQuantity;
 
-    /*@Column(name="idBook", updatable=false)
-	@NotNull(message = "idBook is required")
-	private Integer idBook;*/
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_book", nullable = false)
+    @JoinColumn(name = "bookid", nullable = false)
     @NotNull(message = "Book is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Book bookObj;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user_client", nullable = false)
+    @JoinColumn(name = "userid", nullable = false)
     @NotNull(message = "User is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User userObj;

@@ -35,8 +35,8 @@ public class User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_user", updatable=false)
-    private int id;
+    @Column(name="userid", updatable=false)
+    private int userid;
     @Column(name="first_name", updatable=false)
     @Length(max = 15, min = 15)
     @NotNull(message = "first name is required")

@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 
 public class ReturnedBookDTO {
-	private Integer idBook2;
-	private Integer idUserClient2;
+	private Integer book2id;
+	private Integer user2id;
 	private LocalDateTime returnedDate;
 }

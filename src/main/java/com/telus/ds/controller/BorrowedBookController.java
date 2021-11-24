@@ -32,11 +32,11 @@ public class BorrowedBookController {
 	    private ModelMapper modelMapper;
 
 	    @GetMapping("/getBorrowedBook")
-	    public BorrowedBookDTO getBorrowedBook(@RequestParam("idBorrowedBook") int idBorrowedBook) {
+	    public BorrowedBookDTO getBorrowedBook(@RequestParam("borrowedbooksid") Integer borrowedbooksid) {
 
-	    	BorrowedBook borrowedbookFound = borrowedbookService.getBorrowedBook(idBorrowedBook);
+	    	BorrowedBook borrowedbookFound = borrowedbookService.getBorrowedBook(borrowedbooksid);
 	        if (borrowedbookFound == null) {
-	            throw new ResourceNotFoundException("Borrowed Book not found with id=" + idBorrowedBook);
+	            throw new ResourceNotFoundException("Borrowed Book not found with id=" + borrowedbooksid);
 	        }
 	        return convertToDTO(borrowedbookFound);
 	    }

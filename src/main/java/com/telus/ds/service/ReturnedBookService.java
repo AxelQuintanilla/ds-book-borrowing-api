@@ -14,8 +14,8 @@ public class ReturnedBookService {
 	@Autowired
 	private ReturnedBookRepository returnedbookRepository;
     
-    public ReturnedBook getReturnedBook(int idReturnedBook) {
-        return returnedbookRepository.findByidReturnedBook(idReturnedBook);
+    public ReturnedBook getReturnedBook(Integer returnedbooksid) {
+        return returnedbookRepository.findByreturnedbooksid(returnedbooksid);
     } 
     
     public ReturnedBook create(ReturnedBook returnedbook) {

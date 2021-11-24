@@ -33,11 +33,11 @@ public class UserController {
     private ModelMapper modelMapper;
 
     @GetMapping("/getUser")
-    public UserDTO getUser(@RequestParam("id") int id) {
+    public UserDTO getUser(@RequestParam("userid") Integer userid) {
 
-        User userFound = userService.getUser(id);
+        User userFound = userService.getUser(userid);
         if (userFound == null) {
-            throw new ResourceNotFoundException("User not found with id=" + id);
+            throw new ResourceNotFoundException("User not found with id=" + userid);
         }
         return convertToDTO(userFound);
     }

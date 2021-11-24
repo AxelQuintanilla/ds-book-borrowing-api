@@ -7,6 +7,6 @@ import com.telus.ds.entity.ReturnedBook;
 
 
 public interface ReturnedBookRepository extends JpaRepository<ReturnedBook, Integer> {
-	ReturnedBook findByidReturnedBook(int idReturnedBook);
+	ReturnedBook findByreturnedbooksid(Integer returnedbooksid);
 
 }
