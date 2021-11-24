@@ -33,10 +33,10 @@ public class BookController {
     private ModelMapper modelMapper;
 
     @GetMapping("/getBook")
-    public BookDTO getArtist(@RequestParam("idBook") Integer idBook) {
-        Book book = bookService.findById(idBook);
+    public BookDTO getBook(@RequestParam("id_book") Integer id_book) {
+        Book book = bookService.findById(id_book);
         if (book == null) {
-            throw new ResourceNotFoundException("Book not found with id=" + idBook);
+            throw new ResourceNotFoundException("Book not found with id=" + id_book);
         }
         return convertToDTO(book);
     }

@@ -1,7 +1,6 @@
 package com.telus.ds.service;
 
 import com.telus.ds.entity.Book;
-import com.telus.ds.repository.ArtistRepository;
 import com.telus.ds.repository.BookRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Book findById(Integer idBook) {
-        return bookRepository.findByidBook(idBook);
+    public Book findById(Integer id_book) {
+        return bookRepository.findByid_book(id_book);
     }
     
     public Book create(Book book) {

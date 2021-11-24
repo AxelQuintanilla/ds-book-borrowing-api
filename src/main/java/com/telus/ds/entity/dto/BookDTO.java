@@ -10,8 +10,8 @@ import lombok.ToString;
 
 public class BookDTO {
 	private String bookName;
-	private Long ISBN;
+	private String ISBN;
 	private String genre;
 	private Integer quantity;
-	private Integer state;
+	private Boolean state;
 }

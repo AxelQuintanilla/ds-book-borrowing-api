@@ -31,44 +31,49 @@ import lombok.ToString;
 @Table(name = "borrowedbooks")
 
 public class BorrowedBook {
-	
-	public BorrowedBook() {	}
-	
-	public BorrowedBook(Integer idUserClient,LocalDateTime returnDate, LocalDateTime borrowDate, Integer renewalQuantity, Integer idBook  ) {
-		super();
-		this.idUserClient=idUserClient;
-		this.returnDate=returnDate;
-		this.borrowDate=borrowDate;
-		this.renewalQuantity=renewalQuantity;
-	}
-	
-	@Id
-	@Column(name="idBorrowedBooks", updatable=false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idBorrowedBooks;
-	
-	@Column(name="idUserClient", updatable=false)
-	@NotNull(message = "idUserClient is required")
-	private Integer idUserClient;	
-	
-	@Column(name="returnDate", updatable=false)
-	@NotNull(message = "returnDate is required")
-	private LocalDateTime returnDate;
-	
-	@Column(name="borrowDate", updatable=false)
-	@NotNull(message = "borrowDate DATE is required")
-	private LocalDateTime borrowDate;
-	
-	@Column(name="renewalQuantity", updatable=false)
-	private Integer renewalQuantity;
-	
-	@Column(name="idBook", updatable=false)
-	@NotNull(message = "idBook is required")
-	private Integer idBook;
 
-	@ManyToOne(fetch = FetchType.LAZY )
-	@JoinColumn(name = "idBook", nullable = false)
+    public BorrowedBook() {
+    }
+
+    public BorrowedBook(LocalDateTime returnDate, LocalDateTime borrowDate, Integer renewalQuantity, Integer idBook) {
+        super();
+        this.returnDate = returnDate;
+        this.borrowDate = borrowDate;
+        this.renewalQuantity = renewalQuantity;
+    }
+
+    @Id
+    @Column(name = "id_borrowed_books", updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idBorrowedBooks;
+
+    /*@Column(name = "idUserClient", updatable = false)
+    @NotNull(message = "idUserClient is required")
+    private Integer idUserClient;*/
+
+    @Column(name = "return_date", updatable = false)
+    @NotNull(message = "returnDate is required")
+    private LocalDateTime returnDate;
+
+    @Column(name = "borrow_date", updatable = false)
+    @NotNull(message = "borrowDate DATE is required")
+    private LocalDateTime borrowDate;
+
+    @Column(name = "renewal_quantity", updatable = false)
+    private Integer renewalQuantity;
+
+    /*@Column(name="idBook", updatable=false)
+	@NotNull(message = "idBook is required")
+	private Integer idBook;*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_book", nullable = false)
     @NotNull(message = "Book is required")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Book bookObj;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user_client", nullable = false)
+    @NotNull(message = "User is required")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private User userObj;
 }

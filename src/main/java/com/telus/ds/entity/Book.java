@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
@@ -30,7 +31,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String bookName, Long ISBN, String genre, Integer quantity, Integer state) {
+    public Book(String bookName, String ISBN, String genre, Integer quantity, Boolean state) {
         this.bookName = bookName;
         this.ISBN = ISBN;
         this.genre = genre;
@@ -40,23 +41,23 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idBook", updatable = false)
-    private Integer id;
-    @Column(name = "bookName", updatable = false)
+    @Column(name = "id_book", updatable = false)
+    private Integer id_book;
+    @Column(name = "book_name", updatable = false)
     @Length(max = 45, min = 10)
     @NotNull(message = "Book name is required")
     private String bookName;
     @Column(name="ISBN", updatable=false)
     @NotNull(message = "ISBN is required")
-    private Long ISBN;
+    private String ISBN;
     @Column(name="genre", updatable=false)
     @Length(max = 30, min = 5)
-    @NotNull(message = "genre is required")
     private String genre;
     @Column(name="quantity", updatable=true)
     @NotNull(message = "quantity is required")
     private Integer quantity;
-    @Column(name="state", updatable=true)
+    @Column(name="state", updatable=true, columnDefinition = "TINYINT")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     @NotNull(message = "state is required")
-    private Integer state;
+    private Boolean state;
 }

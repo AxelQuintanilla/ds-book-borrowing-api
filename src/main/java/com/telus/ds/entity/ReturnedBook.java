@@ -31,39 +31,42 @@ import lombok.ToString;
 @Table(name = "returnedbooks")
 
 public class ReturnedBook {
-	
-	public ReturnedBook() {	}
 
-	public ReturnedBook(Integer idBook2,  Integer idUserClient2,LocalDateTime returnedDate  ) {
-		super();
-		this.idBook2=idBook2;
-		this.idUserClient2=idUserClient2;
-		this.returnedDate=returnedDate;
-		
-	}
-	
-	@Id
-	@Column(name="idReturnedBooks", updatable=false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idReturnedBooks;
-	
-	@Column(name="idBook2", updatable=false)
+    public ReturnedBook() {
+    }
+
+    public ReturnedBook(LocalDateTime returnedDate) {
+        super();
+        this.returnedDate = returnedDate;
+
+    }
+
+    @Id
+    @Column(name = "id_returned_books", updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idReturnedBooks;
+
+    /*@Column(name="idBook2", updatable=false)
 	@NotNull(message = "idBook2 is required")
 	private Integer idBook2;
 	
 	@Column(name="idUserClient2", updatable=false)
 	@NotNull(message = "idUserClient2 is required")
-	private Integer idUserClient2;
-	
-	@Column(name="returnedDate", updatable=false)
-	@NotNull(message = "returnedDate is required")
-	private LocalDateTime returnedDate;
-	
-	
-	@ManyToOne(fetch = FetchType.LAZY )
-	@JoinColumn(name = "idBook", nullable = false)
+	private Integer idUserClient2;*/
+    @Column(name = "returned_date", updatable = false)
+    @NotNull(message = "returnedDate is required")
+    private LocalDateTime returnedDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_book2", nullable = false)
     @NotNull(message = "Book is required")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Book bookObj;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user_client2", nullable = false)
+    @NotNull(message = "User is required")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private User userObj;
 
 }

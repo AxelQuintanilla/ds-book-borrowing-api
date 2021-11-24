@@ -42,7 +42,7 @@ public class Ticket {
     }
 
     @Id
-    @Column(name = "idTicket", updatable = false)
+    @Column(name = "id_ticket", updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -51,13 +51,13 @@ public class Ticket {
     private double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idBook3", nullable = false)
+    @JoinColumn(name = "id_book3", nullable = false)
     @NotNull(message = "Book is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Book bookObj;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idUserClient3", nullable = false)
+    @JoinColumn(name = "id_user_client3", nullable = false)
     @NotNull(message = "User is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User userObj;
