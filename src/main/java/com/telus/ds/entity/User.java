@@ -37,12 +37,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="userid", updatable=false)
     private int userid;
-    @Column(name="first_name", updatable=false)
-    @Length(max = 15, min = 15)
-    @NotNull(message = "first name is required")
+    @Column(name="first_name", updatable=true)
+    @Length(max = 15, min = 2)
     private String firstName;
-    @Column(name="last_name", updatable=false)
-    @Length(max = 15, min = 15)
-    @NotNull(message = "last name is required")
+    @Column(name="last_name", updatable=true)
+    @Length(max = 15, min = 2)
     private String lastName;
 }

@@ -7,15 +7,20 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.telus.ds.entity.Ticket;
+import com.telus.ds.entity.User;
 import com.telus.ds.entity.dto.TicketDTO;
+import com.telus.ds.entity.dto.UserDTO;
 import com.telus.ds.exception.ResourceNotFoundException;
 import com.telus.ds.service.TicketService;
 
@@ -53,6 +58,18 @@ public class TicketController {
     public TicketDTO create(@RequestBody Ticket ticket) {
         log.info("Creating a ticket");
         return convertToDTO(ticketService.create(ticket));
+    }
+    
+    @PutMapping("/update/{ticketid}")
+    private TicketDTO update(@RequestBody Ticket ticketUpdated, @PathVariable("ticketid") int ticketid) {
+        Ticket ticket = ticketService.findByticketid(ticketid);
+        log.info("Updating a ticket");
+        return convertToDTO(ticketService.update(ticket, ticketUpdated));
+    }
+    
+    @DeleteMapping("/delete/{ticketid}")
+    private void deleteTicket(@PathVariable("ticketid") int ticketid) {
+    	ticketService.delete(ticketid);
     }
 
     private TicketDTO convertToDTO(Ticket ticket) {
