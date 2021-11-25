@@ -16,14 +16,22 @@ public class BookService {
         return bookRepository.findBybookid(bookid);
     }
 
-    public Book saveOrUpdate(Book book, Book bookUpdated) {
-        book.setBookname(bookUpdated.getBookname());
+    public Book update(Book book, Book bookUpdated) {
+        if(bookUpdated.getBookname()!=null){
+            book.setBookname(bookUpdated.getBookname());
+        }
         if(bookUpdated.getGenre()!=null){
             book.setGenre(bookUpdated.getGenre());
         }
-        /*book.setISBN(bookUpdated.getISBN());
-        book.setQuantity(bookUpdated.getQuantity());
-        book.setState(bookUpdated.getState());*/
+        if(bookUpdated.getISBN()!=null){
+            book.setISBN(bookUpdated.getISBN());
+        }
+        if(bookUpdated.getQuantity()!=null){
+            book.setQuantity(bookUpdated.getQuantity());
+        }
+        if(bookUpdated.getState()!=null){
+            book.setState(bookUpdated.getState());
+        }
         return bookRepository.save(book);
     }
     

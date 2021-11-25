@@ -62,7 +62,7 @@ public class BookController {
     private BookDTO update(@RequestBody Book bookUpdated, @PathVariable("bookid") int bookid) {
         Book book = bookService.findBybookid(bookid);
         log.info("Updating a book");
-        return convertToDTO(bookService.saveOrUpdate(book, bookUpdated));
+        return convertToDTO(bookService.update(book, bookUpdated));
     }
 
     @DeleteMapping("/delete/{bookid}")
