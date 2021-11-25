@@ -17,11 +17,13 @@ public class BookService {
     }
 
     public Book saveOrUpdate(Book book, Book bookUpdated) {
-        book.setBookName(bookUpdated.getBookName());
-        book.setGenre(bookUpdated.getGenre());
-        book.setISBN(bookUpdated.getISBN());
+        book.setBookname(bookUpdated.getBookname());
+        if(bookUpdated.getGenre()!=null){
+            book.setGenre(bookUpdated.getGenre());
+        }
+        /*book.setISBN(bookUpdated.getISBN());
         book.setQuantity(bookUpdated.getQuantity());
-        book.setState(bookUpdated.getState());
+        book.setState(bookUpdated.getState());*/
         return bookRepository.save(book);
     }
     
@@ -32,10 +34,6 @@ public class BookService {
     public List<Book> getBooks() {
         return bookRepository.findAll();
     }
-
-    /*public Book update(Book book) {
-        return bookRepository.save(book);
-    }*/
 
     public void delete(int bookid) {
         bookRepository.deleteById(bookid);

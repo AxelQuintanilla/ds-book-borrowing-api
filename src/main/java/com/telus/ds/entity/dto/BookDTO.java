@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 
 public class BookDTO {
-	private String bookName;
+	private String bookname;
 	private String ISBN;
 	private String genre;
 	private Integer quantity;
