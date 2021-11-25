@@ -37,8 +37,7 @@ public class Ticket {
     public Ticket(double total, Book book, User user) {
         super();
         this.total = total;
-        this.bookObj = book;
-        this.userObj = user;
+        this.borrowedBookObj = book;
     }
 
     @Id
@@ -51,14 +50,9 @@ public class Ticket {
     private double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book3id", nullable = false)
-    @NotNull(message = "Book is required")
+    @JoinColumn(name = "borrowedbooksid", nullable = false)
+    @NotNull(message = "Borrowed book is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Book bookObj;
+    private Book borrowedBookObj;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user3id", nullable = false)
-    @NotNull(message = "User is required")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private User userObj;
 }

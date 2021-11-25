@@ -1,4 +1,5 @@
 package com.telus.ds.controller;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,51 +20,66 @@ import com.telus.ds.exception.ResourceNotFoundException;
 import com.telus.ds.service.ReturnedBookService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Slf4j
 @RestController
 @RequestMapping("/returnedbook")
 public class ReturnedBookController {
-	 @Autowired
-	 ReturnedBookService returnedbookService;
 
-	    @Autowired
-	    private ModelMapper modelMapper;
+    @Autowired
+    ReturnedBookService returnedBookService;
 
-	    @GetMapping("/getReturnedBook")
-	    public ReturnedBookDTO getReturnedBook(@RequestParam("returnedbooksid") Integer returnedbooksid) {
+    @Autowired
+    private ModelMapper modelMapper;
 
-	    	ReturnedBook returnedbookFound = returnedbookService.getReturnedBook(returnedbooksid);
-	        if (returnedbookFound == null) {
-	            throw new ResourceNotFoundException("ReturnedBook not found with id=" + returnedbooksid);
-	        }
-	        return convertToDTO(returnedbookFound);
-	    }
-	    
-	    @GetMapping("/getReturnedBooks")
-	    public List<ReturnedBookDTO> getReturnedBooks() {
-	        return returnedbookService.getReturnedBooks()
-	                .stream()
-	                .map(t -> convertToDTO(t))
-	                .collect(Collectors.toList());
-	    }
+    @GetMapping("/getReturnedBook")
+    public ReturnedBookDTO getReturnedBook(@RequestParam("returnedbooksid") Integer returnedBooksId) {
 
-	    @PostMapping("/create")
-	    public ReturnedBookDTO create(@RequestBody ReturnedBook returnedbook) {
-	        log.info("Creating a returnedbook");
-	        return convertToDTO(returnedbookService.create(returnedbook));
-	    }
+        ReturnedBook returnedBookFound = returnedBookService.getReturnedBook(returnedBooksId);
+        if (returnedBookFound == null) {
+            throw new ResourceNotFoundException("ReturnedBook not found with id=" + returnedBooksId);
+        }
+        return convertToDTO(returnedBookFound);
+    }
 
-	    
-	    private ReturnedBookDTO convertToDTO(ReturnedBook returnedbook) {
-	        configModelMapper();
-	        return modelMapper.map(returnedbook, ReturnedBookDTO.class);
-	    }
-	    
-	    private void configModelMapper() {
-	        if (!modelMapper.getConfiguration().getMatchingStrategy().equals(MatchingStrategies.LOOSE)) {
-	            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-	        }
-	    }
-	
+    @GetMapping("/getReturnedBooks")
+    public List<ReturnedBookDTO> getReturnedBooks() {
+        return returnedBookService.getReturnedBooks()
+                .stream()
+                .map(t -> convertToDTO(t))
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping("/create")
+    public ReturnedBookDTO create(@RequestBody ReturnedBook returnedBook) {
+        log.info("Creating a returned book");
+        return convertToDTO(returnedBookService.create(returnedBook));
+    }
+    
+    @PutMapping("/update/{returnedbooksid}")
+    private ReturnedBookDTO update(@RequestBody ReturnedBook returnedBookUpdated, @PathVariable("returnedbooksid") int returnedBookId) {
+        ReturnedBook returnedBook = returnedBookService.getReturnedBook(returnedBookId);
+        log.info("Updating a returned book");
+        return convertToDTO(returnedBookService.update(returnedBook, returnedBookUpdated));
+    }
+
+    private ReturnedBookDTO convertToDTO(ReturnedBook returnedBook) {
+        configModelMapper();
+        return modelMapper.map(returnedBook, ReturnedBookDTO.class);
+    }
+    
+    @DeleteMapping("/delete/{returnedbooksid}")
+    private void deleteBook(@PathVariable("returnedbooksid") int returnedBookId) {
+        returnedBookService.delete(returnedBookId);
+    }
+
+    private void configModelMapper() {
+        if (!modelMapper.getConfiguration().getMatchingStrategy().equals(MatchingStrategies.LOOSE)) {
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        }
+    }
+
 }

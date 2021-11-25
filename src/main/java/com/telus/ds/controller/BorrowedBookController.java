@@ -20,50 +20,65 @@ import com.telus.ds.exception.ResourceNotFoundException;
 import com.telus.ds.service.BorrowedBookService;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Slf4j
 @RestController
 @RequestMapping("/borrowedbook")
 public class BorrowedBookController {
-	 @Autowired
-	 BorrowedBookService borrowedbookService;
 
-	    @Autowired
-	    private ModelMapper modelMapper;
+    @Autowired
+    BorrowedBookService borrowedBookService;
 
-	    @GetMapping("/getBorrowedBook")
-	    public BorrowedBookDTO getBorrowedBook(@RequestParam("borrowedbooksid") Integer borrowedbooksid) {
+    @Autowired
+    private ModelMapper modelMapper;
 
-	    	BorrowedBook borrowedbookFound = borrowedbookService.getBorrowedBook(borrowedbooksid);
-	        if (borrowedbookFound == null) {
-	            throw new ResourceNotFoundException("Borrowed Book not found with id=" + borrowedbooksid);
-	        }
-	        return convertToDTO(borrowedbookFound);
-	    }
-	    
-	    @GetMapping("/getBorrowedBooks")
-	    public List<BorrowedBookDTO> getBorrowedBooks() {
-	        return borrowedbookService.getBorrowedBooks()
-	                .stream()
-	                .map(t -> convertToDTO(t))
-	                .collect(Collectors.toList());
-	    }
+    @GetMapping("/getBorrowedBook")
+    public BorrowedBookDTO getBorrowedBook(@RequestParam("borrowedbooksid") Integer borrowedbooksid) {
 
-	    @PostMapping("/create")
-	    public BorrowedBookDTO create(@RequestBody BorrowedBook borrowedbook) {
-	        log.info("Creating a borrowedbook");
-	        return convertToDTO(borrowedbookService.create(borrowedbook));
-	    }
+        BorrowedBook borrowedBookFound = borrowedBookService.getBorrowedBook(borrowedbooksid);
+        if (borrowedBookFound == null) {
+            throw new ResourceNotFoundException("Borrowed Book not found with id=" + borrowedbooksid);
+        }
+        return convertToDTO(borrowedBookFound);
+    }
 
-	    
-	    private BorrowedBookDTO convertToDTO(BorrowedBook borrowedbook) {
-	        configModelMapper();
-	        return modelMapper.map(borrowedbook, BorrowedBookDTO.class);
-	    }
-	    
-	    private void configModelMapper() {
-	        if (!modelMapper.getConfiguration().getMatchingStrategy().equals(MatchingStrategies.LOOSE)) {
-	            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-	        }
-	    }
+    @GetMapping("/getBorrowedBooks")
+    public List<BorrowedBookDTO> getBorrowedBooks() {
+        return borrowedBookService.getBorrowedBooks()
+                .stream()
+                .map(t -> convertToDTO(t))
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping("/create")
+    public BorrowedBookDTO create(@RequestBody BorrowedBook borrowedBook) {
+        log.info("Creating a borrowed book");
+        return convertToDTO(borrowedBookService.create(borrowedBook));
+    }
+    
+    @PutMapping("/update/{borrowedbooksid}")
+    private BorrowedBookDTO update(@RequestBody BorrowedBook borrowedBookUpdated, @PathVariable("borrowedbooksid") Integer borrowedBooksId) {
+        BorrowedBook borrowedBook = borrowedBookService.getBorrowedBook(borrowedBooksId);
+        log.info("Updating a borrowed book");
+        return convertToDTO(borrowedBookService.update(borrowedBook, borrowedBookUpdated));
+    }
+
+    @DeleteMapping("/delete/{borrowedbooksid}")
+    private void deleteBook(@PathVariable("borrowedbooksid") int borrowedBooksId) {
+        borrowedBookService.delete(borrowedBooksId);
+    }
+
+    private BorrowedBookDTO convertToDTO(BorrowedBook borrowedBook) {
+        configModelMapper();
+        return modelMapper.map(borrowedBook, BorrowedBookDTO.class);
+    }
+
+    private void configModelMapper() {
+        if (!modelMapper.getConfiguration().getMatchingStrategy().equals(MatchingStrategies.LOOSE)) {
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        }
+    }
 }

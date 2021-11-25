@@ -1,6 +1,5 @@
 package com.telus.ds.entity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -19,10 +18,12 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Getter
@@ -35,9 +36,9 @@ public class BorrowedBook {
     public BorrowedBook() {
     }
 
-    public BorrowedBook(LocalDateTime returnDate, LocalDateTime borrowDate, Integer renewalQuantity, Integer idBook) {
+    public BorrowedBook(LocalDate returnDate, LocalDate borrowDate, Integer renewalQuantity, Integer idBook) {
         super();
-        this.returnDate = returnDate;
+        this.expectedReturnDate = returnDate;
         this.borrowDate = borrowDate;
         this.renewalQuantity = renewalQuantity;
     }
@@ -47,20 +48,24 @@ public class BorrowedBook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer borrowedbooksid;
 
-    /*@Column(name = "idUserClient", updatable = false)
-    @NotNull(message = "idUserClient is required")
-    private Integer idUserClient;*/
+    @Column(name = "expectedreturn_date", updatable = true)
+    private LocalDate expectedReturnDate;
+    
+    @Column(name = "returned_date", updatable = true)
+    @NotNull(message = "returnedDate is required")
+    private LocalDate returnedDate;
 
-    @Column(name = "return_date", updatable = false)
-    @NotNull(message = "returnDate is required")
-    private LocalDateTime returnDate;
-
-    @Column(name = "borrow_date", updatable = false)
+    @Column(name = "borrow_date", updatable = true)
     @NotNull(message = "borrowDate DATE is required")
-    private LocalDateTime borrowDate;
+    private LocalDate borrowDate;
 
-    @Column(name = "renewal_quantity", updatable = false)
+    @Column(name = "renewal_quantity", updatable = true)
     private Integer renewalQuantity;
+    
+    @Column(name="returned", updatable=true, columnDefinition = "TINYINT")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @NotNull(message = "state is required")
+    private Boolean returned;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookid", nullable = false)

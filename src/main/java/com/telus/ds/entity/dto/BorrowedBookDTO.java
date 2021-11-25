@@ -1,7 +1,6 @@
 package com.telus.ds.entity.dto;
 
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,9 +10,9 @@ import lombok.ToString;
 @ToString
 
 public class BorrowedBookDTO {
-	private Integer userid;
-	private LocalDateTime returnDate;
-	private LocalDateTime borrowDate;
+	private LocalDate expectedReturnDate;
+	private LocalDate borrowDate;
 	private Integer renewalQuantity;
-	private Integer bookid;
+        private LocalDate returnedDate;
+        private Boolean returned;
 }
