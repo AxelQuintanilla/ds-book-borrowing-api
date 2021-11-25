@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.telus.ds.entity.Book;
 import com.telus.ds.entity.User;
 import com.telus.ds.repository.UserRepository;
 
@@ -44,7 +43,7 @@ public class UserService {
         return userRepository.save(user);
     }
     
-    public void update(User user, int userid) {
+    /*public void update(User user, int userid) {
     	userRepository.save(user);
-    }
+    }*/
 }

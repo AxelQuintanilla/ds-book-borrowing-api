@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.telus.ds.entity.Ticket;
-import com.telus.ds.entity.User;
 import com.telus.ds.repository.TicketRepository;
 
 @Service
@@ -35,14 +34,14 @@ public class TicketService {
     }
     
     public Ticket update(Ticket ticket, Ticket ticketUpdated) {
-        if(ticketUpdated.getTotal()!=0){
+        if(ticketUpdated.getTotal()>=0){
         	ticket.setTotal(ticketUpdated.getTotal());
         }
 
         return ticketRepository.save(ticket);
     }
     
-    public void update(Ticket ticket, int ticketid) {
+    /*public void update(Ticket ticket, int ticketid) {
     	ticketRepository.save(ticket);
-    }
+    }*/
 }

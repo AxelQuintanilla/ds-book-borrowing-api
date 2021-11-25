@@ -35,8 +35,8 @@ public class BorrowedBookService {
         if(borrowedBookUpdated.getRenewalQuantity()!=null){
             borrowedBook.setRenewalQuantity(borrowedBookUpdated.getRenewalQuantity());
         }
-        if(borrowedBookUpdated.getExpectedReturnDate()!=null){
-            borrowedBook.setExpectedReturnDate(borrowedBookUpdated.getExpectedReturnDate());
+        if(borrowedBookUpdated.getReturnedDate()!=null){
+            borrowedBook.setReturnedDate(borrowedBookUpdated.getReturnedDate());
         }
         if(borrowedBookUpdated.getReturned()!=null){
             borrowedBook.setReturned(borrowedBookUpdated.getReturned());

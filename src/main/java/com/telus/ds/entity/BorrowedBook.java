@@ -52,7 +52,6 @@ public class BorrowedBook {
     private LocalDate expectedReturnDate;
     
     @Column(name = "returned_date", updatable = true)
-    @NotNull(message = "returnedDate is required")
     private LocalDate returnedDate;
 
     @Column(name = "borrow_date", updatable = true)

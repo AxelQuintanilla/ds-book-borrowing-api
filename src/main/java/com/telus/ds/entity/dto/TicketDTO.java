@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public class TicketDTO {
-    private double total;
+    private Double total;
 }

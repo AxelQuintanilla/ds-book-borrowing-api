@@ -47,7 +47,7 @@ public class BookService {
         bookRepository.deleteById(bookid);
     }
 
-    public void update(Book book, int bookid) {
+    /*public void update(Book book, int bookid) {
         bookRepository.save(book);
-    }
+    }*/
 }
