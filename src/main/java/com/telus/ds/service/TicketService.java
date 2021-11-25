@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.telus.ds.entity.BorrowedBook;
 import com.telus.ds.entity.Ticket;
+import com.telus.ds.repository.BorrowedBookRepository;
 import com.telus.ds.repository.TicketRepository;
 
 @Service
@@ -17,7 +19,16 @@ public class TicketService {
         return ticketRepository.findByticketid(ticketid);
     } 
     
-    public Ticket create(Ticket ticket) {
+    public double delayMount(BorrowedBook borrowedBook) {
+    	Integer daysDelay=ticketRepository.checkDelayDay(borrowedBook.getBorrowedbooksid(),borrowedBook.getExpectedReturnDate(),borrowedBook.getReturnedDate());
+		return daysDelay*0.2;
+    	
+    }
+    public Ticket create(BorrowedBook borrowedBook) {
+    	Ticket ticket= new Ticket();
+    	ticket.setTotal(delayMount(borrowedBook));
+    	ticket.setBorrowedBookObj(borrowedBook);
+    	
 	return ticketRepository.save(ticket);
     }
     
@@ -41,6 +52,7 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
     
+
     /*public void update(Ticket ticket, int ticketid) {
     	ticketRepository.save(ticket);
     }*/
