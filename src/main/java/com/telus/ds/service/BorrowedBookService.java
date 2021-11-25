@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.telus.ds.entity.BorrowedBook;
 import com.telus.ds.repository.BorrowedBookRepository;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 @Service
 
@@ -24,31 +28,40 @@ public class BorrowedBookService {
         /*borrowedbookRepository.setBorrowDate(LocalDateTime.now());*/
         return borrowedBookRepository.save(borrowedBook);
     }
-    
+
     public BorrowedBook update(BorrowedBook borrowedBook, BorrowedBook borrowedBookUpdated) {
-        if(borrowedBookUpdated.getExpectedReturnDate()!=null){
+        if (borrowedBookUpdated.getExpectedReturnDate() != null) {
             borrowedBook.setExpectedReturnDate(borrowedBookUpdated.getExpectedReturnDate());
         }
-        if(borrowedBookUpdated.getBorrowDate()!=null){
+        if (borrowedBookUpdated.getBorrowDate() != null) {
             borrowedBook.setBorrowDate(borrowedBookUpdated.getBorrowDate());
         }
-        if(borrowedBookUpdated.getRenewalQuantity()!=null){
+        if (borrowedBookUpdated.getRenewalQuantity() != null) {
             borrowedBook.setRenewalQuantity(borrowedBookUpdated.getRenewalQuantity());
         }
-        if(borrowedBookUpdated.getReturnedDate()!=null){
+        if (borrowedBookUpdated.getReturnedDate() != null) {
             borrowedBook.setReturnedDate(borrowedBookUpdated.getReturnedDate());
         }
-        if(borrowedBookUpdated.getReturned()!=null){
+        if (borrowedBookUpdated.getReturned() != null) {
             borrowedBook.setReturned(borrowedBookUpdated.getReturned());
         }
         return borrowedBookRepository.save(borrowedBook);
     }
-    
+
     public void delete(int borrowedBookId) {
         borrowedBookRepository.deleteById(borrowedBookId);
     }
 
     public List<BorrowedBook> getBorrowedBooks() {
         return borrowedBookRepository.findAll();
+    }
+
+    public Integer checkHowManyBorrowedBooks(BorrowedBook bBook) {
+        Integer quantityBorrowedBooks = borrowedBookRepository.checkBorrowedBooks(bBook.getUserObj().getUserid());
+        return quantityBorrowedBooks;
+    }
+
+    public Long daysBetweenDates(LocalDate borrowedBookDate, LocalDate expectedReturnDate) throws IOException {
+        return ChronoUnit.DAYS.between(borrowedBookDate, expectedReturnDate);
     }
 }
