@@ -36,11 +36,13 @@ public class BorrowedBook {
     public BorrowedBook() {
     }
 
-    public BorrowedBook(LocalDate returnDate, LocalDate borrowDate, Integer renewalQuantity, Integer idBook) {
+    public BorrowedBook(LocalDate returnDate, LocalDate borrowDate, Integer renewalQuantity, LocalDate returnedDate, Boolean returned) {
         super();
         this.expectedReturnDate = returnDate;
         this.borrowDate = borrowDate;
         this.renewalQuantity = renewalQuantity;
+        this.returnedDate=returnedDate;
+        this.returned=returned;
     }
 
     @Id

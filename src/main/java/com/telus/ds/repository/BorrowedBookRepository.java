@@ -1,9 +1,11 @@
 package com.telus.ds.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
 
 import com.telus.ds.entity.BorrowedBook;
 
@@ -13,4 +15,5 @@ public interface BorrowedBookRepository extends JpaRepository<BorrowedBook, Inte
         @Query(value = "SELECT count(*) FROM bookapi.borrowedbooks WHERE userid = :userid", nativeQuery = true)
         Integer checkBorrowedBooks(@Param("userid") Integer userid);
 
+	
 }

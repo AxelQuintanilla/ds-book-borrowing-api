@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.telus.ds.entity.BorrowedBook;
 import com.telus.ds.entity.Ticket;
 import com.telus.ds.entity.User;
 import com.telus.ds.entity.dto.TicketDTO;
 import com.telus.ds.entity.dto.UserDTO;
 import com.telus.ds.exception.ResourceNotFoundException;
+import com.telus.ds.service.BorrowedBookService;
 import com.telus.ds.service.TicketService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 public class TicketController {
     @Autowired
     TicketService ticketService;
+    @Autowired
+    BorrowedBookService borrowedBookService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -53,11 +57,14 @@ public class TicketController {
                 .map(t -> convertToDTO(t))
                 .collect(Collectors.toList());
     }
+    
 
-    @PostMapping("/create")
-    public TicketDTO create(@RequestBody Ticket ticket) {
+    @PostMapping("/create/{borrowedbooksid}")
+    public TicketDTO create(@PathVariable ("borrowedbooksid") Integer borrowedbooksid) {
+        BorrowedBook borrowedbookFound = borrowedBookService.getBorrowedBook(borrowedbooksid);
+        
         log.info("Creating a ticket");
-        return convertToDTO(ticketService.create(ticket));
+        return convertToDTO(ticketService.create(borrowedbookFound));
     }
     
     @PutMapping("/update/{ticketid}")
@@ -71,6 +78,8 @@ public class TicketController {
     private void deleteTicket(@PathVariable("ticketid") int ticketid) {
     	ticketService.delete(ticketid);
     }
+    
+ 
 
     private TicketDTO convertToDTO(Ticket ticket) {
         configModelMapper();
