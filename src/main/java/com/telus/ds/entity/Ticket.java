@@ -46,7 +46,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ticketid;
 
-    @Column(name = "total", updatable = false)
+    @Column(name = "total", updatable = true)
     @NotNull(message = "total is required")
     private double total;
 

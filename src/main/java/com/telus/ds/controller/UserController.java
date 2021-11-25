@@ -7,14 +7,19 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.telus.ds.entity.Book;
 import com.telus.ds.entity.User;
+import com.telus.ds.entity.dto.BookDTO;
 import com.telus.ds.entity.dto.UserDTO;
 import com.telus.ds.exception.ResourceNotFoundException;
 import com.telus.ds.service.UserService;
@@ -55,6 +60,20 @@ public class UserController {
         log.info("Creating a user");
         return convertToDTO(userService.create(user));
     }
+    
+    @PutMapping("/update/{userid}")
+    private UserDTO update(@RequestBody User userUpdated, @PathVariable("userid") int userid) {
+        User user = userService.findByuserid(userid);
+        log.info("Updating a user");
+        return convertToDTO(userService.update(user, userUpdated));
+    }
+    
+    @DeleteMapping("/delete/{userid}")
+    private void deleteUser(@PathVariable("userid") int userid) {
+    	userService.delete(userid);
+    }
+    
+    
 
     private UserDTO convertToDTO(User user) {
         configModelMapper();
