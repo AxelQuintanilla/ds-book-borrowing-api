@@ -1,5 +1,8 @@
 package com.telus.ds.test;
 
+import com.telus.ds.TrackApplication;
+import com.telus.ds.entity.Book;
+import com.telus.ds.repository.BookRepository;
 import static org.mockito.Mockito.mock;
 
 import java.time.LocalDateTime;
@@ -30,7 +33,7 @@ import com.telus.ds.service.TrackService;
 
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
-//@SpringBootTest(classes = TrackApplication.class)
+@SpringBootTest(classes = TrackApplication.class)
 class TrackApplicationTests {
         /*
 	@Autowired
@@ -106,4 +109,20 @@ class TrackApplicationTests {
 		MatcherAssert.assertThat(resultTtrack.getIsrc(), equalTo("USVT10300001"));
 
 	}*/
+    
+    @Autowired
+    private BookRepository bookRepository;
+    
+    @Test 
+    void findByIdBookRepository(){
+        //with
+        //insert data from data.sql
+        
+        //when
+        Book resultBook = bookRepository.findBybookid(12);
+        
+        //then
+        MatcherAssert.assertThat(resultBook.getISBN(), equalTo("015402366"));
+    }
+    
 }
