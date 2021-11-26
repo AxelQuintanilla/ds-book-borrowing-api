@@ -34,8 +34,6 @@ public class BookService {
         }
         return bookRepository.save(book);
     }
-    
-
 
     public Book create (Book book){
         return bookRepository.save(book);
@@ -48,8 +46,16 @@ public class BookService {
     public void delete(int bookid) {
         bookRepository.deleteById(bookid);
     }
+    
+    public void remainingQuantity(Book book, String type){
+        Book newBook = new Book();
+        if(type=="create"){
+            newBook.setQuantity(book.getQuantity()-1);
+        }else {
+            newBook.setQuantity(book.getQuantity()+1);
 
-    /*public void update(Book book, int bookid) {
-        bookRepository.save(book);
-    }*/
+        }
+        
+        update(book, newBook);
+    }
 }

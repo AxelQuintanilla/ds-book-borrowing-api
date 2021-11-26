@@ -18,6 +18,7 @@ import com.telus.ds.entity.BorrowedBook;
 import com.telus.ds.entity.dto.BorrowedBookDTO;
 import com.telus.ds.exception.*;
 import com.telus.ds.service.BorrowedBookService;
+import static com.telus.ds.util.Constants.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,16 +55,11 @@ public class BorrowedBookController {
     }
 
     @PostMapping("/create")
-    public BorrowedBookDTO create(@RequestBody BorrowedBook borrowedBook) throws Exception {
+    public BorrowedBookDTO create(@RequestBody BorrowedBook borrowedBook) {
         Integer check = borrowedBookService.checkHowManyBorrowedBooks(borrowedBook);
-        Long days = borrowedBookService.daysBetweenDates(borrowedBook.getBorrowDate(), borrowedBook.getExpectedReturnDate());
         log.info("Books borrowed from this user: " + check.toString());
-        log.info("Days between borrow date and expected return date: " + days.toString());
-        if(check>=3){
+        if(check>=MAXIMUM_BOOKS_PER_USER){
             throw new BadInputParamException("You can only have up to 3 books borrowed.");
-        }
-        else if(days>7){
-            throw new BadInputParamException("You can only borrow a book for a maximum of a week.");
         }else {
             log.info("Creating a borrowed book");
             return convertToDTO(borrowedBookService.create(borrowedBook));
@@ -73,17 +69,35 @@ public class BorrowedBookController {
     @PutMapping("/update/{borrowedbooksid}")
     private BorrowedBookDTO update(@RequestBody BorrowedBook borrowedBookUpdated, @PathVariable("borrowedbooksid") Integer borrowedBooksId) {
         BorrowedBook borrowedBook = borrowedBookService.getBorrowedBook(borrowedBooksId);
+        if (borrowedBook == null) {
+            throw new ResourceNotFoundException("Borrowed Book not found with id=" + borrowedBooksId);
+        }
         log.info("Updating a borrowed book");
         return convertToDTO(borrowedBookService.update(borrowedBook, borrowedBookUpdated));
     }
     
-    /*@PutMapping("/renewal/{borrowedbooksid}")
-    private BorrowedBookDTO renewal(@RequestBody BorrowedBook borrowedBookRenewal, @PathVariable("borrowedbooksid") Integer borrowedBooksId){
+    @PutMapping("/renewal/{borrowedbooksid}")
+    private BorrowedBookDTO renewal(@PathVariable("borrowedbooksid") Integer borrowedBooksId){
         BorrowedBook borrowedBook = borrowedBookService.getBorrowedBook(borrowedBooksId);
-    }*/
-
-   
-
+        if (borrowedBook == null) {
+            throw new ResourceNotFoundException("Borrowed Book not found with id=" + borrowedBooksId);
+        }
+        if(borrowedBook.getRenewalQuantity()>=MAXIMUM_RENEWAL_QUANTITY){
+            throw new BadInputParamException("You can only renew a book up to 2 times.");
+        } else {
+            log.info("Renovating a borrowed book.");
+            return convertToDTO(borrowedBookService.renewal(borrowedBook));
+        }
+    }
+    
+    @PutMapping("/returnborrowedBook/{borrowedbooksid}")
+    private BorrowedBookDTO returnBorrowedBook(@PathVariable("borrowedbooksid") Integer borrowedBooksId){
+        BorrowedBook borrowedBook = borrowedBookService.getBorrowedBook(borrowedBooksId);
+        if (borrowedBook == null) {
+            throw new ResourceNotFoundException("Borrowed Book not found with id=" + borrowedBooksId);
+        }
+        return convertToDTO(borrowedBookService.returnBorrowedBook(borrowedBook));
+    }
     
     @DeleteMapping("/delete/{borrowedbooksid}")
     private void deleteBook(@PathVariable("borrowedbooksid") int borrowedBooksId) {
