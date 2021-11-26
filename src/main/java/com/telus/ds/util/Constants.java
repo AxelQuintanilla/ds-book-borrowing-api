@@ -9,4 +9,5 @@ public class Constants {
         public static final int MAXIMUM_BORROWING_DAYS = 7;
         public static final int MAXIMUM_RENEWAL_QUANTITY = 2;
         public static final double PENALIZATION_PER_DAY = 0.2;
+        
 }
