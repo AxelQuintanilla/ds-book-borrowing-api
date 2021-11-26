@@ -53,9 +53,10 @@ public class BookService {
             newBook.setQuantity(book.getQuantity()-1);
         }else {
             newBook.setQuantity(book.getQuantity()+1);
-
         }
-        
+        if(book.getQuantity()-1==0){
+            newBook.setState(false);
+        }
         update(book, newBook);
     }
 }

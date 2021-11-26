@@ -38,7 +38,7 @@ public class BorrowedBookService {
         borrowedBook.setExpectedReturnDate(LocalDate.now().plusDays(7));
         Book book = bookRepository.findBybookid(borrowedBook.getBookObj().getBookid());
         String type = "create";
-        if(book.getQuantity()<=0){
+        if(!book.getState()){
             throw new BadInputParamException("There are no available books.");
         } else {
             bookService.remainingQuantity(book, type);
