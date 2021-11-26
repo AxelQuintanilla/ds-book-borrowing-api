@@ -13,7 +13,10 @@ import com.telus.ds.entity.Ticket;
 public interface TicketRepository extends JpaRepository<Ticket, Integer>{
     Ticket findByticketid(Integer ticketid);
     
-    @Query(value="SELECT TIMESTAMPDIFF(DAY,:expectedReturnDate,:returnedDate) from bookapi.borrowedbooks where borrowedbooksid=:borrowedbooksid",nativeQuery = true)
-	Integer checkDelayDay(@Param("borrowedbooksid") Integer borrowedbooksid,@Param("expectedReturnDate") LocalDate expectedReturnDate,@Param("returnedDate") LocalDate returnedDate );
+    @Query(value="SELECT TIMESTAMPDIFF(DAY,:expectedReturnedDate,:returnedDate) from bookapi.borrowedbooks where borrowedbooksid=:borrowedbooksid",nativeQuery = true)
+	Integer checkDelayDay(@Param("borrowedbooksid") Integer borrowedbooksid,@Param("expectedReturnedDate") LocalDate expectedReturnedDate,@Param("returnedDate") LocalDate returnedDate );
 	
+    @Query(value="SELECT :returned from bookapi.borrowedbooks where borrowedbooksid=:borrowedbooksid",nativeQuery = true)
+   	Integer checkReturnedState(@Param("borrowedbooksid") Integer borrowedbooksid,@Param("returned") boolean returned);
+   	
 }

@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.telus.ds.entity.BorrowedBook;
 import com.telus.ds.entity.Ticket;
+import com.telus.ds.exception.BadInputParamException;
 import com.telus.ds.repository.BorrowedBookRepository;
 import com.telus.ds.repository.TicketRepository;
+import static com.telus.ds.util.Constants.*;
+
 
 @Service
 public class TicketService {
@@ -20,8 +23,22 @@ public class TicketService {
     } 
     
     public double delayMount(BorrowedBook borrowedBook) {
-    	Integer daysDelay=ticketRepository.checkDelayDay(borrowedBook.getBorrowedbooksid(),borrowedBook.getExpectedReturnDate(),borrowedBook.getReturnedDate());
-		return daysDelay*0.2;
+    	Integer isRetorned=ticketRepository.checkReturnedState(borrowedBook.getBorrowedbooksid(), borrowedBook.getReturned());
+    	
+    	if(isRetorned!=0) {
+    		Integer daysDelay=ticketRepository.checkDelayDay(borrowedBook.getBorrowedbooksid(),borrowedBook.getExpectedReturnDate(),borrowedBook.getReturnedDate());
+    		if(daysDelay>0) {
+    			System.out.println(daysDelay);
+        		return daysDelay*PENALIZATION_PER_DAY;
+    		}else {
+    			System.out.println(daysDelay);
+                throw new BadInputParamException("The book dont have penalization.");
+    		}
+    	}else {
+    		 
+            throw new BadInputParamException("This book is not returned.");
+    	}
+    	
     	
     }
     public Ticket create(BorrowedBook borrowedBook) {
