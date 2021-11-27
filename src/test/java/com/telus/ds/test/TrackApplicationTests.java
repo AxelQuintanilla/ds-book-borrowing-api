@@ -1,8 +1,17 @@
 package com.telus.ds.test;
 
 import com.telus.ds.TrackApplication;
+import com.telus.ds.controller.BookController;
 import com.telus.ds.entity.Book;
+import com.telus.ds.entity.BorrowedBook;
+import com.telus.ds.entity.Ticket;
+import com.telus.ds.entity.User;
+import com.telus.ds.entity.dto.BookDTO;
 import com.telus.ds.repository.BookRepository;
+import com.telus.ds.repository.TicketRepository;
+import com.telus.ds.repository.UserRepository;
+import com.telus.ds.service.BookService;
+import com.telus.ds.service.TicketService;
 import static org.mockito.Mockito.mock;
 
 import java.time.LocalDateTime;
@@ -35,83 +44,18 @@ import com.telus.ds.service.TrackService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TrackApplication.class)
 class TrackApplicationTests {
-        /*
-	@Autowired
-	private TrackRepository trackRepository;
-
-	@Autowired
-	private TrackService trackService;
-
-	@Autowired
-	private TrackController trackController;
-
-	@Autowired
-	private ArtistRepository artistRepository;
-	
-	@Test
-	@Disabled
-	void getTrackController() {
-		// with
-		Artist artist = artistRepository.findArtistById(1L); //getting instance from data.sql
-		
-		TrackService trackServiceMock = mock(TrackService.class);
-		Track track = new Track("USVT10300001", 232106, artist);
-
-		// when
-		Mockito.when(trackServiceMock.getTrack("USVT10300001")).thenReturn(track);
-		TrackDTO resultTrackDTO = trackController.getTrack("USVT10300001");
-
-		// then
-		Assert.isNonEmpty(resultTrackDTO);
-	}
-
-	@Test
-	void getTrackService() {
-		// with
-		Artist artist = new Artist("ArtistName", "5555-5555", 55);
-		TrackRepository trackRepositoryMock = mock(TrackRepository.class);
-		Track track = new Track("USVT10300001", 232106, artist);
-
-		// when
-		Mockito.when(trackRepositoryMock.findByIsrc("USVT10300001")).thenReturn(track);
-		Track resultTrack = trackService.getTrack("USVT10300001");
-
-		// then
-		Assert.isNonEmpty(resultTrack);
-	}
-
-	@Test
-	void saveTrackRepository() {
-		// with
-		Artist artist = artistRepository.findArtistById(1L); //getting instance from data.sql
-		
-		Track track = new Track("USVT10300004", 232106, artist);
-		track.setCreationDate(LocalDateTime.now());
-
-		// when
-		trackRepository.save(track);
-		Track resultTtrack = trackRepository.findByIsrc("USVT10300004");
-
-		// then
-		MatcherAssert.assertThat(resultTtrack.getDuration().longValue(), equalTo(232106L));
-
-	}
-
-	@Test
-	void findByIsrcTrackRepository() {
-		// with
-		// insert data from data.sql
-
-		// when
-		Track resultTtrack = trackRepository.findByIsrc("USVT10300001");
-
-		// then
-		MatcherAssert.assertThat(resultTtrack.getIsrc(), equalTo("USVT10300001"));
-
-	}*/
     
     @Autowired
     private BookRepository bookRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private BookController bookController;
+    
+    @Autowired
+    private TicketService ticketService;
     
     @Test 
     void findByIdBookRepository(){
@@ -125,4 +69,45 @@ class TrackApplicationTests {
         MatcherAssert.assertThat(resultBook.getISBN(), equalTo("015402366"));
     }
     
+    @Test
+    void saveUserRepository(){
+        //with
+        User user = new User("Steve", "Jobs");
+        
+        //when
+        userRepository.save(user);
+        User resultUser = userRepository.findByfirstName("Steve");
+        
+        //then
+        MatcherAssert.assertThat(resultUser.getLastName(), equalTo("Jobs"));
+    }
+    
+    @Test
+    void getTicketService(){
+        //with
+        TicketRepository ticketRepositoryMock = mock(TicketRepository.class);
+        Ticket ticket = ticketRepositoryMock.findByticketid(34);
+        
+        //when
+        Mockito.when(ticketRepositoryMock.findByticketid(34)).thenReturn(ticket);
+        Ticket resultTicket = ticketService.getTicket(34);
+        
+        //then
+        Assert.isNonEmpty(resultTicket);
+    }
+    
+    @Test
+    void getBookController(){
+        //with
+        BookService bookServiceMock = mock(BookService.class);
+        Book book = new Book("Learn REACT development", "333444555", "Education", 2, true);
+        bookRepository.save(book);
+        
+        //when
+        Mockito.when(bookServiceMock.findByISBN("333444555")).thenReturn(book);
+        BookDTO resultBookDTO = bookController.getBookByISBN("333444555");
+        
+        //then
+        Assert.isNonEmpty(resultBookDTO);
+    }
 }

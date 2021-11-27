@@ -43,6 +43,16 @@ public class BookController {
         }
         return convertToDTO(book);
     }
+    
+    @GetMapping("/getBookByISBN")
+    public BookDTO getBookByISBN(@RequestParam("ISBN") String ISBN) {
+
+        Book bookFound = bookService.findByISBN(ISBN);
+        if (bookFound == null) {
+            throw new ResourceNotFoundException("Book not found with ISBN=" + ISBN);
+        }
+        return convertToDTO(bookFound);
+    }
 
     @GetMapping("/getBooks")
     public List<BookDTO> getBooks() {

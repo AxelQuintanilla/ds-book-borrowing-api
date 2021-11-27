@@ -54,5 +54,4 @@ public class Ticket {
     @NotNull(message = "Borrowed book is required")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private BorrowedBook borrowedBookObj;
-
 }

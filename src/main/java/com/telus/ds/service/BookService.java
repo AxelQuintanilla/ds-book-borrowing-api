@@ -15,6 +15,10 @@ public class BookService {
     public Book findBybookid(Integer bookid) {
         return bookRepository.findBybookid(bookid);
     }
+    
+    public Book findByISBN(String ISBN){
+        return bookRepository.findByISBN(ISBN);
+    }
 
     public Book update(Book book, Book bookUpdated) {
         if(bookUpdated.getBookname()!=null){

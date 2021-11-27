@@ -45,7 +45,7 @@ public class BorrowedBookController {
         }
         return convertToDTO(borrowedBookFound);
     }
-
+    
     @GetMapping("/getBorrowedBooks")
     public List<BorrowedBookDTO> getBorrowedBooks() {
         return borrowedBookService.getBorrowedBooks()
