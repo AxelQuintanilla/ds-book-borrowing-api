@@ -26,7 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = BookBorrowingApplication.class)
-class TrackApplicationTests {
+class BookBorrowingTests {
     
     @Autowired
     private BookRepository bookRepository;
