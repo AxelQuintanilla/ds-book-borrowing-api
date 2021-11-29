@@ -1,9 +1,8 @@
 package com.telus.ds.test;
 
-import com.telus.ds.TrackApplication;
+import com.telus.ds.BookBorrowingApplication;
 import com.telus.ds.controller.BookController;
 import com.telus.ds.entity.Book;
-import com.telus.ds.entity.BorrowedBook;
 import com.telus.ds.entity.Ticket;
 import com.telus.ds.entity.User;
 import com.telus.ds.entity.dto.BookDTO;
@@ -13,14 +12,9 @@ import com.telus.ds.repository.UserRepository;
 import com.telus.ds.service.BookService;
 import com.telus.ds.service.TicketService;
 import static org.mockito.Mockito.mock;
-
-import java.time.LocalDateTime;
-
 import org.apache.logging.log4j.core.util.Assert;
 import org.hamcrest.MatcherAssert;
 import static org.hamcrest.Matchers.equalTo;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -29,20 +23,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/*
-import com.telus.ds.TrackApplication;
-import com.telus.ds.controller.TrackController;
-import com.telus.ds.entity.Artist;
-import com.telus.ds.entity.Track;
-import com.telus.ds.entity.dto.TrackDTO;
-import com.telus.ds.repository.ArtistRepository;
-import com.telus.ds.repository.TrackRepository;
-import com.telus.ds.service.TrackService;
-*/
-
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = TrackApplication.class)
+@SpringBootTest(classes = BookBorrowingApplication.class)
 class TrackApplicationTests {
     
     @Autowired

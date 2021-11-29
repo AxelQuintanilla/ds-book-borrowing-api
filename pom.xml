@@ -8,11 +8,11 @@
 		<version>2.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.telus.ds.track</groupId>
-	<artifactId>track</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>track</name>
-	<description>Demo project for DSU</description>
+	<groupId>com.telus.ds.BookBorrowingAPI</groupId>
+	<artifactId>BookBorrowingAPI</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>BookBorrowingAPI</name>
+	<description>Final project for DSU Application Design</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

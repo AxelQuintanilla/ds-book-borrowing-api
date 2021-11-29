@@ -11,10 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-//@EnableJpaRepositories ("com.telus.ds.repository")
-//@ComponentScan(basePackages = {"com.telus.ds.service", "com.telus.ds.entity", "com.telus.ds.controller", "com.telus.ds.entity.dto", "com.telus.ds.repository"})
-@OpenAPIDefinition(info = @Info(title = "Track API", version = "1.0", description = "Track API"))
-public class TrackApplication {
+@OpenAPIDefinition(info = @Info(title = "Book Borrowing API", version = "1.0", description = "Book Borrowing API"))
+public class BookBorrowingApplication {
 
 	@Bean
 	public ModelMapper modelMapper() {
@@ -22,7 +20,7 @@ public class TrackApplication {
 	}
 	
 	public static void main(String[] args) {
-		SpringApplication.run(TrackApplication.class, args);
+		SpringApplication.run(BookBorrowingApplication.class, args);
 	}
 	
 }
