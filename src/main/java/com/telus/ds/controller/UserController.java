@@ -7,6 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins="http://localhost:4200")
 @RequestMapping("/user")
 public class UserController {
 
@@ -54,7 +58,11 @@ public class UserController {
                 .map(t -> convertToDTO(t))
                 .collect(Collectors.toList());
     }
+    
+ 
 
+    
+    
     @PostMapping("/create")
     public UserDTO create(@RequestBody User user) {
         log.info("Creating a user");
